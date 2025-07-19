@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.UUID;
 
 public class SimpleProduct extends Product {
+
     private final int price;
     private final UUID id;
 
@@ -19,7 +20,7 @@ public class SimpleProduct extends Product {
 
     @Override
     public UUID getId() {
-        return null;
+        return id;
     }
 
     @JsonIgnore
