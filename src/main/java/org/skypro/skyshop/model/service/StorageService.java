@@ -93,9 +93,11 @@ public class StorageService {
         return new ArrayList<>(Collections.unmodifiableCollection(articles.values()));
     }
 
+
     public List<Searchable> getAll() {
         return new ArrayList<>(Collections.unmodifiableCollection(Stream.concat(products.values().stream(),
                 articles.values().stream()).collect(Collectors.toList())));
     }
+
 
 }

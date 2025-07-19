@@ -15,7 +15,18 @@ public class SearchResult {
     }
 
     public static SearchResult fromSearchable(Searchable searchable) {
-        return new SearchResult(searchable.getId(), searchable.getName(), searchable.getContentType());
+        return new SearchResult(searchable.getId(), searchable.getName(), searchable.getStringRepresentation());
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public String getStringRepresentation() {
+        return contentType;
+    }
 }
