@@ -8,10 +8,7 @@ import org.springframework.stereotype.Service;
 import org.skypro.skyshop.model.article.Article;
 import org.skypro.skyshop.model.product.Product;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -21,22 +18,10 @@ public class StorageService {
     private final Map<UUID, Product> products;
     private final Map<UUID, Article> articles;
 
-    /*public StorageService(Map<UUID, Product> products, Map<UUID, Article> articles) {
-        this.products = products;
-        this.articles = articles;
-    }*/
     public StorageService() {
         this.products = new HashMap<>();
         this.articles = new HashMap<>();
         createTestData();
-    }
-
-    public Collection<Product> returnProducts() {
-        return products.values();
-    }
-
-    public Collection<Article> returnArticles() {
-        return articles.values();
     }
 
     private void createTestData() {
@@ -85,33 +70,34 @@ public class StorageService {
                 "сала.", UUID.randomUUID());
         this.articles.put(salo.getId(), salo);
 
-
         SimpleProduct appleGold = new SimpleProduct("Яблоко Gold", 600, UUID.randomUUID());
         this.products.put(appleGold.getId(), appleGold);
 
-//        this.products.put(appleGold.getId(), appleGold);
         DiscountedProduct appleGoldDiscont = new DiscountedProduct("Яблоко Gold", 520, 17, UUID.randomUUID());
         this.products.put(appleGoldDiscont.getId(), appleGoldDiscont);
         FixPriceProduct milkDiscont = new FixPriceProduct("Молоко Эконом", UUID.randomUUID());
         this.products.put(milkDiscont.getId(), milkDiscont);
 
-//        this.products.put(milkDiscont.getId(), milkDiscont);
         Article apples = new Article("Длительное хранение яблок в условиях городских квартир", "Лучшим местом для " +
                 "хранения яблок в городской квартире всегда был и остается застекленный балкон или лоджияю Потому что" +
                 " яблоки требуют прохлады, идеальная температура хранения для них от -2°С до +5°С.", UUID.randomUUID());
         this.articles.put(apples.getId(), apples);
 
-       /* Article article1 = new Article("Безопасность мореплавания.", "Средства навигационного оборудования - самая важная отрасль.", UUID.randomUUID());
-        this.articles.put(article1.getId(), article1);
-        Article article2 = new Article("Маяки России.", "Первый этап проекта — электронная энциклопедия российских исторических маяков.", UUID.randomUUID());
-        this.articles.put(article2.getId(), article2);
-        Article article3 = new Article("Маяки народов России.", "Второй этап проекта — сбор и оцифровка фотоархивов.", UUID.randomUUID());
-        this.articles.put(article3.getId(), article3);*/
     }
 
-//    @GetMapping("/searchable")
-    public Collection<Searchable> getAllSearchable() {
-        return Stream.concat(products.values().stream(),articles.values().stream()).collect(Collectors.toList());
+    public List<Product> detAllProduct() {
+        return new ArrayList<>(Collections.unmodifiableCollection(products.values()));
     }
+
+    public List<Article> getAllArticle() {
+        return new ArrayList<>(Collections.unmodifiableCollection(articles.values()));
+    }
+
+
+    public List<Searchable> getAll() {
+        return new ArrayList<>(Collections.unmodifiableCollection(Stream.concat(products.values().stream(),
+                articles.values().stream()).collect(Collectors.toList())));
+    }
+
 
 }

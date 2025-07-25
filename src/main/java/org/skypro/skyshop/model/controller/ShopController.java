@@ -2,37 +2,38 @@ package org.skypro.skyshop.model.controller;
 
 import org.skypro.skyshop.model.article.Article;
 import org.skypro.skyshop.model.product.Product;
+import org.skypro.skyshop.model.search.SearchResult;
+import org.skypro.skyshop.model.service.SearchService;
 import org.skypro.skyshop.model.service.StorageService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.naming.directory.SearchResult;
-import java.util.Collection;
 import java.util.List;
 
 @RestController
 public class ShopController {
     private final StorageService storageService;
+    private final SearchService searchService;
 
-    public ShopController(StorageService storageService) {
+    public ShopController(StorageService storageService, SearchService searchService) {
         this.storageService = storageService;
+        this.searchService = searchService;
     }
 
     @GetMapping("/products")
-    public Collection<Product> getAllProducts() {
-        return storageService.returnProducts();
+    public List<Product> getAllProducts() {
+        return storageService.detAllProduct();
     }
 
     @GetMapping("/articles")
-    public Collection<Article> getAllArticles() {
-        return storageService.returnArticles();
+    public List<Article> getAllArticles() {
+        return storageService.getAllArticle();
     }
 
-    /*@GetMapping("/search")
-    public List<SearchResult> findPattern(@RequestParam String pattern) {
-        return this.storageService.getAllSearchable().stream()
-                .filter(searchable -> searchable.getSearchTerm().toLowerCase().contains(pattern.toLowerCase()))
-                .map(SearchResult::fromSearchable).collect(Collectors.toList());
-    }*/
+    @GetMapping("/all")
+    public List<SearchResult> search(@RequestParam String query) {
+        return searchService.search(query);
+    }
+
 }
