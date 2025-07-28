@@ -8,7 +8,7 @@ public class SearchResult {
     private final UUID id;
     private final String contentType;
 
-    public SearchResult(UUID id, String name, String contentType) {
+    private SearchResult(UUID id, String name, String contentType) {
         this.name = name;
         this.id = id;
         this.contentType = contentType;
