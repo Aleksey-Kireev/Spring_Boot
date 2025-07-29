@@ -52,7 +52,7 @@ public class StorageService {
         this.products.put(tea.getId(), tea);
 
         Article buckwheat = new Article("Как варить гречку", "Статья про приготовление блюд из гречневой крупы. \n " +
-                "Для проверки мы дабавим слово крупа еще раз, а затем еще раз укрупненно", UUID.randomUUID());
+                "Для проверки мы добавим слово крупа еще раз, а затем еще раз укрупненно", UUID.randomUUID());
         this.articles.put(buckwheat.getId(), buckwheat);
         Article wallpaper = new Article("Поклейка обоев своими руками", "Статья о самостоятельном наклеивание " +
                 "рулонных обоев.\n" +
@@ -79,7 +79,7 @@ public class StorageService {
         this.products.put(milkDiscont.getId(), milkDiscont);
 
         Article apples = new Article("Длительное хранение яблок в условиях городских квартир", "Лучшим местом для " +
-                "хранения яблок в городской квартире всегда был и остается застекленный балкон или лоджияю Потому что" +
+                "хранения яблок в городской квартире всегда был и остается застекленный балкон или лоджия. Потому что" +
                 " яблоки требуют прохлады, идеальная температура хранения для них от -2°С до +5°С.", UUID.randomUUID());
         this.articles.put(apples.getId(), apples);
 
@@ -89,10 +89,13 @@ public class StorageService {
         return new ArrayList<>(Collections.unmodifiableCollection(products.values()));
     }
 
+    public Optional<Product> getProductById(UUID id) {
+        return Optional.ofNullable(products.get(id));
+    }
+
     public List<Article> getAllArticle() {
         return new ArrayList<>(Collections.unmodifiableCollection(articles.values()));
     }
-
 
     public List<Searchable> getAll() {
         return new ArrayList<>(Collections.unmodifiableCollection(Stream.concat(products.values().stream(),
